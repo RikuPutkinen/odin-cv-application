@@ -9,13 +9,13 @@ class General extends Component {
     return (
       <fieldset className='General'>
         <legend>General Information</legend>
-        <label for="name">Name</label>
+        <label htmlFor="name">Name</label>
         <input type="text" name="name" />
 
-        <label for="email">Email</label>
+        <label htmlFor="email">Email</label>
         <input type="email" name="email" />
 
-        <label for="phone">Phone number</label>
+        <label htmlFor="phone">Phone number</label>
         <input type="tel" name="phone" />
       </fieldset>
     );

@@ -9,14 +9,14 @@ class EducationField extends Component {
     return (
       <div className="EducationField">
         <fieldset>
-          <label for="school">School name</label>
+          <label htmlFor="school">School name</label>
           <input name="school" ></input>
 
-          <label for="title">Title of study</label>
+          <label htmlFor="title">Title of study</label>
           <input name="title" ></input>
 
-          <label type="date" for="date">Date of study</label>
-          <input name="date" ></input>
+          <label type="date" htmlFor="date">Date of study</label>
+          <input type="date" name="date" ></input>
 
           <button type='button'>Remove Education</button>
         </fieldset>
@@ -34,6 +34,7 @@ class Education extends Component {
     return (
       <fieldset className="Education">
         <legend>Educational Experience</legend>
+        <EducationField />
         <button type='button'>Add New Education</button>
       </fieldset>
     );
