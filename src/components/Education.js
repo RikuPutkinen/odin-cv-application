@@ -1,18 +1,17 @@
 import React, { Component } from 'react';
-import General from './components/General';
 
-class App extends Component {
+class Education extends Component {
   constructor(props) {
     super(props);
   }
 
   render() {
     return (
-      <div className="App">
-        <General />
+      <div className="Education">
+
       </div>
     );
   };
 }
 
-export default App;
+export default Education;
