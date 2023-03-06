@@ -3,6 +3,7 @@ import Display from './components/Display';
 import EducationForm from './components/EducationForm';
 import ExperienceForm from './components/ExperienceForm';
 import GeneralForm from './components/GeneralForm';
+import './index.css'
 
 class App extends Component {
   constructor(props) {
@@ -21,7 +22,7 @@ class App extends Component {
     this.removeExperienceField = this.removeExperienceField.bind(this);
     this.handleExperienceChange = this.handleExperienceChange.bind(this);
 
-    this.state = {
+    /*this.state = {
       editable: true,
       general: {
         name: '',
@@ -30,6 +31,17 @@ class App extends Component {
       },
       education: [],
       experience: []
+    }*/
+
+    this.state = {
+      editable: true,
+      general: {
+        name: 'Aaaaaaa',
+        email: 'adfkfsf@ssjdosd.cosj',
+        phone: '238235082'
+      },
+      education: [{id: 'asass', school: 'bvcxsswe fs a f ', title: 'asessfsfwsf', date: '2022-05-04'}],
+      experience: [{id: 'hgdfh', company: 'dff  sfs sfddsdfs ', position: 'sfdssfdcvv', task: 'vvvfdgwtf', start: '2002-12-12', end: '1999-04-07'}]
     }
   }
 
@@ -104,7 +116,7 @@ class App extends Component {
   render() {
     if (this.state.editable) {
       return (
-        <form className="App">
+        <form className="container mx-auto w-96">
           <GeneralForm
             data={this.state.general}
             onChange={this.handleGeneralChange}
@@ -115,21 +127,23 @@ class App extends Component {
             onRemove={this.removeEducationField}
             onChange={this.handleEducationChange}
             />
+          <hr className='bg-gray-500 h-0.5'></hr>
           <ExperienceForm
             data={this.state.experience}
             onAdd={this.addExperienceField}
             onRemove={this.removeExperienceField}
             onChange={this.handleExperienceChange}
             />
-          <button type='button' onClick={this.toggleEdit}>{this.state.editable ? "Submit" : "Edit"}</button>
+          <hr className='bg-gray-500 h-0.5'></hr>
+          <button type='button' onClick={this.toggleEdit} className='my-3 px-3 py-2 rounded-md text-md bg-blue-400'>{this.state.editable ? "Submit" : "Edit"}</button>
         </form>
       );
     }
     else {
       return (
-        <div>
+        <div className='container mx-auto w-96'>
           <Display data={this.state} />
-          <button type='button' onClick={this.toggleEdit}>{this.state.editable ? "Submit" : "Edit"}</button>
+          <button type='button' onClick={this.toggleEdit} className='my-3 px-3 py-2 rounded-md text-md bg-blue-400'>{this.state.editable ? "Submit" : "Edit"}</button>
         </div>
       )
     }
