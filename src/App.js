@@ -1,13 +1,18 @@
 import React, { Component } from 'react';
-import Education from './components/Education';
-import Experience from './components/Experience';
-import General from './components/General';
+import Display from './components/Display';
+import EducationForm from './components/EducationForm';
+import ExperienceForm from './components/ExperienceForm';
+import GeneralForm from './components/GeneralForm';
 
 class App extends Component {
   constructor(props) {
     super(props);
 
-    this.handleSubmit = this.handleSubmit.bind(this);
+    //this.handleSubmit = this.handleSubmit.bind(this);
+    this.toggleEdit = this.toggleEdit.bind(this);
+
+    this.handleGeneralChange = this.handleGeneralChange.bind(this);
+
     this.addEducationField = this.addEducationField.bind(this);
     this.removeEducationField = this.removeEducationField.bind(this);
     this.handleEducationChange = this.handleEducationChange.bind(this);
@@ -17,34 +22,26 @@ class App extends Component {
     this.handleExperienceChange = this.handleExperienceChange.bind(this);
 
     this.state = {
+      editable: true,
       general: {
         name: '',
         email: '',
         phone: ''
       },
-      education: []
-      /*{
-        school: '',
-        title: '',
-        date: ''
-      }*/,
+      education: [],
       experience: []
-      /*{
-        company: '',
-        title: '',
-        task: '',
-        start: '',
-        end: ''
-      }*/
     }
   }
 
-  handleSubmit(e) {
-    e.preventDefault();
-    const formData = new FormData(e.target);
-    const formJSON = Object.fromEntries(formData.entries());
-    console.log(formJSON);
-  };
+  toggleEdit() {
+    this.setState({editable: this.state.editable ? false : true})
+  }
+
+  handleGeneralChange(e) {
+    const data = this.state.general;
+    data[e.target.name] = e.target.value;
+    this.setState({general: data});
+  }
 
   addEducationField() {
     this.setState(
@@ -105,25 +102,38 @@ class App extends Component {
   }
 
   render() {
-    return (
-      <form className="App" onSubmit={this.handleSubmit}>
-        <General data={this.state.general}/>
-        <Education
-          data={this.state.education}
-          onAdd={this.addEducationField}
-          onRemove={this.removeEducationField}
-          onChange={this.handleEducationChange}
-          />
-        <Experience
-          data={this.state.experience}
-          onAdd={this.addExperienceField}
-          onRemove={this.removeExperienceField}
-          onChange={this.handleExperienceChange}
-          />
-        <button type='submit'>Submit</button>
-      </form>
-    );
-  };
+    if (this.state.editable) {
+      return (
+        <form className="App">
+          <GeneralForm
+            data={this.state.general}
+            onChange={this.handleGeneralChange}
+            />
+          <EducationForm
+            data={this.state.education}
+            onAdd={this.addEducationField}
+            onRemove={this.removeEducationField}
+            onChange={this.handleEducationChange}
+            />
+          <ExperienceForm
+            data={this.state.experience}
+            onAdd={this.addExperienceField}
+            onRemove={this.removeExperienceField}
+            onChange={this.handleExperienceChange}
+            />
+          <button type='button' onClick={this.toggleEdit}>{this.state.editable ? "Submit" : "Edit"}</button>
+        </form>
+      );
+    }
+    else {
+      return (
+        <div>
+          <Display data={this.state} />
+          <button type='button' onClick={this.toggleEdit}>{this.state.editable ? "Submit" : "Edit"}</button>
+        </div>
+      )
+    }
+  }
 }
 
 export default App;
