@@ -12,6 +12,10 @@ class App extends Component {
     this.removeEducationField = this.removeEducationField.bind(this);
     this.handleEducationChange = this.handleEducationChange.bind(this);
 
+    this.addExperienceField = this.addExperienceField.bind(this);
+    this.removeExperienceField = this.removeExperienceField.bind(this);
+    this.handleExperienceChange = this.handleExperienceChange.bind(this);
+
     this.state = {
       general: {
         name: '',
@@ -40,30 +44,6 @@ class App extends Component {
     const formData = new FormData(e.target);
     const formJSON = Object.fromEntries(formData.entries());
     console.log(formJSON);
-    
-    this.setState({
-      general: {
-        name: formJSON.name,
-        email: formJSON.email,
-        phone: formJSON.phone
-      },
-      education: []
-      /*{
-        id: ''
-        school: '',
-        title: '',
-        date: ''
-      }*/,
-      experience: []
-      /*{
-        id: ''
-        company: '',
-        title: '',
-        task: '',
-        start: '',
-        end: ''
-      }*/
-    });
   };
 
   addEducationField() {
@@ -94,6 +74,36 @@ class App extends Component {
     this.setState({education: data});
   }
 
+  addExperienceField() {
+    this.setState(
+      {
+        experience: [...this.state.experience, {
+          id: crypto.randomUUID(),
+          company: '',
+          position: '',
+          task: '',
+          start: '',
+          end: ''}]}
+    )
+  }
+
+  removeExperienceField(id) {
+    this.setState({experience: this.state.experience.filter(item => {
+      return item.id !== id;
+    })})
+  }
+
+  handleExperienceChange(id, e) {
+    const data = this.state.experience.map(item => {
+      if (item.id !== id) return item;
+      else {
+        item[e.target.name] = e.target.value;
+        return item;
+      }
+    })
+    this.setState({experience: data});
+  }
+
   render() {
     return (
       <form className="App" onSubmit={this.handleSubmit}>
@@ -102,9 +112,14 @@ class App extends Component {
           data={this.state.education}
           onAdd={this.addEducationField}
           onRemove={this.removeEducationField}
-          onChange={this.handleEducationChange}/>
+          onChange={this.handleEducationChange}
+          />
         <Experience
-          data={this.state.experience}/>
+          data={this.state.experience}
+          onAdd={this.addExperienceField}
+          onRemove={this.removeExperienceField}
+          onChange={this.handleExperienceChange}
+          />
         <button type='submit'>Submit</button>
       </form>
     );
