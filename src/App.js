@@ -22,7 +22,7 @@ class App extends Component {
     this.removeExperienceField = this.removeExperienceField.bind(this);
     this.handleExperienceChange = this.handleExperienceChange.bind(this);
 
-    /*this.state = {
+    this.state = {
       editable: true,
       general: {
         name: '',
@@ -31,17 +31,6 @@ class App extends Component {
       },
       education: [],
       experience: []
-    }*/
-
-    this.state = {
-      editable: true,
-      general: {
-        name: 'Aaaaaaa',
-        email: 'adfkfsf@ssjdosd.cosj',
-        phone: '238235082'
-      },
-      education: [{id: 'asass', school: 'bvcxsswe fs a f ', title: 'asessfsfwsf', date: '2022-05-04'}],
-      experience: [{id: 'hgdfh', company: 'dff  sfs sfddsdfs ', position: 'sfdssfdcvv', task: 'vvvfdgwtf', start: '2002-12-12', end: '1999-04-07'}]
     }
   }
 
