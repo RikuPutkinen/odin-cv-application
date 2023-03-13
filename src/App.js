@@ -3,7 +3,7 @@ import Display from './components/Display';
 import EducationForm from './components/EducationForm';
 import ExperienceForm from './components/ExperienceForm';
 import GeneralForm from './components/GeneralForm';
-import './index.css'
+import "./index.css";
 
 class App extends Component {
   constructor(props) {
