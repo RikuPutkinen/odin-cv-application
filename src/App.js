@@ -1,141 +1,114 @@
-import React, { Component } from 'react';
+import React, { useState } from 'react';
 import Display from './components/Display';
 import EducationForm from './components/EducationForm';
 import ExperienceForm from './components/ExperienceForm';
 import GeneralForm from './components/GeneralForm';
-import "./index.css";
 
-class App extends Component {
-  constructor(props) {
-    super(props);
+function App(props) {
+    const [editable, setEditable] = useState(true);
+    const [general, setGeneral] = useState({
+      name: '',
+      email: '',
+      phone: ''
+    });
+    const [education, setEducation] = useState([]);
+    const [experience, setExperience] = useState([]);
 
-    //this.handleSubmit = this.handleSubmit.bind(this);
-    this.toggleEdit = this.toggleEdit.bind(this);
-
-    this.handleGeneralChange = this.handleGeneralChange.bind(this);
-
-    this.addEducationField = this.addEducationField.bind(this);
-    this.removeEducationField = this.removeEducationField.bind(this);
-    this.handleEducationChange = this.handleEducationChange.bind(this);
-
-    this.addExperienceField = this.addExperienceField.bind(this);
-    this.removeExperienceField = this.removeExperienceField.bind(this);
-    this.handleExperienceChange = this.handleExperienceChange.bind(this);
-
-    this.state = {
-      editable: true,
-      general: {
-        name: '',
-        email: '',
-        phone: ''
-      },
-      education: [],
-      experience: []
-    }
+  function toggleEdit() {
+    setEditable(!editable);
   }
 
-  toggleEdit() {
-    this.setState({editable: this.state.editable ? false : true})
-  }
-
-  handleGeneralChange(e) {
-    const data = this.state.general;
+  function handleGeneralChange(e) {
+    const data = general;
     data[e.target.name] = e.target.value;
-    this.setState({general: data});
+    setGeneral({data});
   }
 
-  addEducationField() {
-    this.setState(
-      {
-        education: [...this.state.education, {
+  function addEducationField() {
+    setEducation([education, {
           id: crypto.randomUUID(),
           school: '',
           title: '',
-          date: ''}]}
-    )
+          date: ''}])
   }
 
-  removeEducationField(id) {
-    this.setState({education: this.state.education.filter(item => {
+  function removeEducationField(id) {
+    setEducation(education.filter(item => {
       return item.id !== id;
-    })})
+    }))
   }
 
-  handleEducationChange(id, e) {
-    const data = this.state.education.map(item => {
+  function handleEducationChange(id, e) {
+    const data = education.map(item => {
       if (item.id !== id) return item;
       else {
         item[e.target.name] = e.target.value;
         return item;
       }
     })
-    this.setState({education: data});
+    setEducation(data);
   }
 
-  addExperienceField() {
-    this.setState(
-      {
-        experience: [...this.state.experience, {
+  function addExperienceField() {
+    setExperience([experience, {
           id: crypto.randomUUID(),
           company: '',
           position: '',
           task: '',
           start: '',
-          end: ''}]}
-    )
+          end: ''}])
   }
 
-  removeExperienceField(id) {
-    this.setState({experience: this.state.experience.filter(item => {
+  function removeExperienceField(id) {
+    setExperience(experience.filter(item => {
       return item.id !== id;
-    })})
+    }))
   }
 
-  handleExperienceChange(id, e) {
-    const data = this.state.experience.map(item => {
+  function handleExperienceChange(id, e) {
+    const data = experience.map(item => {
       if (item.id !== id) return item;
       else {
         item[e.target.name] = e.target.value;
         return item;
       }
     })
-    this.setState({experience: data});
+    setExperience(data);
   }
 
-  render() {
-    if (this.state.editable) {
-      return (
-        <form className="container mx-auto w-96">
-          <GeneralForm
-            data={this.state.general}
-            onChange={this.handleGeneralChange}
-            />
-          <EducationForm
-            data={this.state.education}
-            onAdd={this.addEducationField}
-            onRemove={this.removeEducationField}
-            onChange={this.handleEducationChange}
-            />
-          <hr className='bg-gray-500 h-0.5'></hr>
-          <ExperienceForm
-            data={this.state.experience}
-            onAdd={this.addExperienceField}
-            onRemove={this.removeExperienceField}
-            onChange={this.handleExperienceChange}
-            />
-          <hr className='bg-gray-500 h-0.5'></hr>
-          <button type='button' onClick={this.toggleEdit} className='my-3 px-3 py-2 rounded-md text-md bg-blue-400'>{this.state.editable ? "Submit" : "Edit"}</button>
-        </form>
-      );
-    }
-    else {
-      return (
-        <div className='container mx-auto w-96'>
-          <Display data={this.state} />
-          <button type='button' onClick={this.toggleEdit} className='my-3 px-3 py-2 rounded-md text-md bg-blue-400'>{this.state.editable ? "Submit" : "Edit"}</button>
-        </div>
-      )
-    }
+
+  if (editable) {
+    return (
+      <form className="container mx-auto w-96">
+        <GeneralForm
+          data={general}
+          onChange={handleGeneralChange}
+          />
+        <EducationForm
+          data={education}
+          onAdd={addEducationField}
+          onRemove={removeEducationField}
+          onChange={handleEducationChange}
+          />
+        <hr className='bg-gray-500 h-0.5'></hr>
+        <ExperienceForm
+          data={experience}
+          onAdd={addExperienceField}
+          onRemove={removeExperienceField}
+          onChange={handleExperienceChange}
+          />
+        <hr className='bg-gray-500 h-0.5'></hr>
+        <button type='button' onClick={toggleEdit} className='my-3 px-3 py-2 rounded-md text-md bg-blue-400'>{editable ? "Submit" : "Edit"}</button>
+      </form>
+    );
+  }
+  else {
+    return (
+      <div className='container mx-auto w-96'>
+        <Display data={{general, education, experience}} />
+        <button type='button' onClick={toggleEdit} className='my-3 px-3 py-2 rounded-md text-md bg-blue-400'>{editable ? "Submit" : "Edit"}</button>
+      </div>
+    )
   }
 }
 
