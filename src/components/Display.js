@@ -21,7 +21,7 @@ export default function Display(props) {
         {props.data.education.map(item => {
           const {id, school, title, date} = item;
           return (
-            <div key={id} className='grid grid-cols-2 grid-flow-row'>
+            <div key={id} className='grid grid-cols-2 grid-flow-row my-2'>
               <p className='font-bold'>School Name:</p>
               <p>{school}</p>
 
@@ -39,7 +39,7 @@ export default function Display(props) {
         {props.data.experience.map(item => {
           const {id, company, position, task, start, end} = item;
           return (
-            <div key={id} className='grid grid-cols-2 grid-flow-row'>
+            <div key={id} className='grid grid-cols-2 grid-flow-row my-2'>
               <p className='font-bold'>Company Name:</p>
               <p>{company}</p>
 

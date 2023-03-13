@@ -4,7 +4,7 @@ import EducationForm from './components/EducationForm';
 import ExperienceForm from './components/ExperienceForm';
 import GeneralForm from './components/GeneralForm';
 
-function App(props) {
+function App() {
     const [editable, setEditable] = useState(true);
     const [general, setGeneral] = useState({
       name: '',
@@ -19,13 +19,21 @@ function App(props) {
   }
 
   function handleGeneralChange(e) {
-    const data = general;
-    data[e.target.name] = e.target.value;
-    setGeneral({data});
+    console.log("General CHANGE:", general)
+    const targetName = e.target.name;
+    const value = e.target.value;
+    let data = general;
+
+    if (targetName === "name") data = {...data, name: value}
+    else if (targetName === "email") data = {...data, email: value}
+    else if (targetName === "phone") data = {...data, phone: value}
+
+    setGeneral(data);
   }
 
   function addEducationField() {
-    setEducation([education, {
+    console.log("Education ADD:", education)
+    setEducation([...education, {
           id: crypto.randomUUID(),
           school: '',
           title: '',
@@ -50,7 +58,7 @@ function App(props) {
   }
 
   function addExperienceField() {
-    setExperience([experience, {
+    setExperience([...experience, {
           id: crypto.randomUUID(),
           company: '',
           position: '',

@@ -1,6 +1,8 @@
 import React from 'react';
 
 export default function GeneralForm(props) {
+  console.log(props)
+  const {name, email, phone} = props.data;
   return (
     <fieldset className='General'>
       <legend className='font-bold text-lg mb-2 mt-4'>General Information</legend>
@@ -9,21 +11,21 @@ export default function GeneralForm(props) {
         <input
           type="text"
           name="name"
-          value={props.data.name}
+          value={name}
           onChange={e => props.onChange(e)}
           />
         <label htmlFor="email">Email</label>
         <input
           type="email"
           name="email"
-          value={props.data.email}
+          value={email}
           onChange={e => props.onChange(e)}
           />
         <label htmlFor="phone">Phone number</label>
         <input
           type="tel"
           name="phone"
-          value={props.data.phone}
+          value={phone}
           onChange={e => props.onChange(e)}
             />
       </div>

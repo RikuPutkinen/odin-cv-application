@@ -4,6 +4,7 @@ export default function EducationForm (props) {
   return (
     <fieldset className="Education">
       <legend className='font-bold text-lg mb-2 mt-6'>Educational Experience</legend>
+      
       {props.data.map((item) => {
         const {id, school, title, date} = item;
         return (
@@ -34,6 +35,7 @@ export default function EducationForm (props) {
           </fieldset>
         )
       })}
+      
       <button type='button' onClick={props.onAdd} className='bg-blue-400 w-fit py-2 px-6 rounded-md my-2'>Add New</button>
     </fieldset>
   );
